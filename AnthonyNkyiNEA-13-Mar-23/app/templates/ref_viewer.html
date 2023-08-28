@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>View referral</h1>
+    {% if (allowed==True or (ref.NHSNumber=current_user.NHSNumber)) %}
+        <p><b>Referral id {{id}} for {{ref.NHSNumber}}</b></p>
+        <p><b>Info:</b> {{ref}} </p>
+        <p><b>Doctor notes:</b> {{ref.notes}} </p>
+    {% else %}
+        <p>404 error. Page not found.</p>
+    {% endif %}
+{% endblock %}

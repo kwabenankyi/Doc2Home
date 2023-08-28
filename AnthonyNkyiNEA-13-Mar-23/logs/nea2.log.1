@@ -1,0 +1,108 @@
+2023-03-04 08:23:42,578 ERROR: Exception on /registerPatient [POST] [in c:\users\kwabe\documents\!python proj\!nea\nea1\nea2\venv\lib\site-packages\flask\app.py:1455]
+Traceback (most recent call last):
+  File "c:\users\kwabe\documents\!python proj\!nea\nea1\nea2\venv\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "c:\users\kwabe\documents\!python proj\!nea\nea1\nea2\venv\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "c:\users\kwabe\documents\!python proj\!nea\nea1\nea2\venv\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "c:\users\kwabe\documents\!python proj\!nea\nea1\nea2\venv\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "C:\Users\kwabe\Documents\!Python Proj\!NEA\NEA1\NEA2\app\routes.py", line 98, in registerPatient
+    if form.validate_on_submit():
+  File "c:\users\kwabe\documents\!python proj\!nea\nea1\nea2\venv\lib\site-packages\flask_wtf\form.py", line 86, in validate_on_submit
+    return self.is_submitted() and self.validate()
+  File "c:\users\kwabe\documents\!python proj\!nea\nea1\nea2\venv\lib\site-packages\wtforms\form.py", line 329, in validate
+    return super().validate(extra)
+  File "c:\users\kwabe\documents\!python proj\!nea\nea1\nea2\venv\lib\site-packages\wtforms\form.py", line 146, in validate
+    if not field.validate(self, extra):
+  File "c:\users\kwabe\documents\!python proj\!nea\nea1\nea2\venv\lib\site-packages\wtforms\fields\core.py", line 242, in validate
+    stop_validation = self._run_validation_chain(form, chain)
+  File "c:\users\kwabe\documents\!python proj\!nea\nea1\nea2\venv\lib\site-packages\wtforms\fields\core.py", line 262, in _run_validation_chain
+    validator(form, self)
+  File "c:\users\kwabe\documents\!python proj\!nea\nea1\nea2\venv\lib\site-packages\wtforms\validators.py", line 138, in __call__
+    length = field.data and len(field.data) or 0
+TypeError: object of type 'int' has no len()
+2023-03-04 08:25:35,658 INFO: NEA2 startup [in C:\Users\kwabe\Documents\!Python Proj\!NEA\NEA1\NEA2\app\__init__.py:38]
+2023-03-04 08:33:28,203 INFO: NEA2 startup [in C:\Users\kwabe\Documents\!Python Proj\!NEA\NEA1\NEA2\app\__init__.py:38]
+2023-03-04 08:35:39,885 ERROR: Exception on /createIllness/2000000000 [POST] [in c:\users\kwabe\documents\!python proj\!nea\nea1\nea2\venv\lib\site-packages\flask\app.py:1455]
+Traceback (most recent call last):
+  File "c:\users\kwabe\documents\!python proj\!nea\nea1\nea2\venv\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "c:\users\kwabe\documents\!python proj\!nea\nea1\nea2\venv\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "c:\users\kwabe\documents\!python proj\!nea\nea1\nea2\venv\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "c:\users\kwabe\documents\!python proj\!nea\nea1\nea2\venv\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "C:\Users\kwabe\Documents\!Python Proj\!NEA\NEA1\NEA2\app\routes.py", line 433, in createIllness
+    return redirect(url_for('illness'))
+  File "c:\users\kwabe\documents\!python proj\!nea\nea1\nea2\venv\lib\site-packages\flask\helpers.py", line 336, in url_for
+    return appctx.app.handle_url_build_error(error, endpoint, values)
+  File "c:\users\kwabe\documents\!python proj\!nea\nea1\nea2\venv\lib\site-packages\flask\helpers.py", line 323, in url_for
+    rv = url_adapter.build(
+  File "c:\users\kwabe\documents\!python proj\!nea\nea1\nea2\venv\lib\site-packages\werkzeug\routing.py", line 2305, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.BuildError: Could not build url for endpoint 'illness'. Did you mean 'createIllness' instead?
+2023-03-04 08:36:28,961 INFO: NEA2 startup [in C:\Users\kwabe\Documents\!Python Proj\!NEA\NEA1\NEA2\app\__init__.py:38]
+2023-03-04 08:37:12,848 INFO: NEA2 startup [in C:\Users\kwabe\Documents\!Python Proj\!NEA\NEA1\NEA2\app\__init__.py:38]
+2023-03-04 08:42:26,297 INFO: NEA2 startup [in C:\Users\kwabe\Documents\!Python Proj\!NEA\NEA1\NEA2\app\__init__.py:38]
+2023-03-04 08:42:38,516 ERROR: Exception on /referral/2000000000 [GET] [in c:\users\kwabe\documents\!python proj\!nea\nea1\nea2\venv\lib\site-packages\flask\app.py:1455]
+Traceback (most recent call last):
+  File "c:\users\kwabe\documents\!python proj\!nea\nea1\nea2\venv\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "c:\users\kwabe\documents\!python proj\!nea\nea1\nea2\venv\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "c:\users\kwabe\documents\!python proj\!nea\nea1\nea2\venv\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "c:\users\kwabe\documents\!python proj\!nea\nea1\nea2\venv\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "C:\Users\kwabe\Documents\!Python Proj\!NEA\NEA1\NEA2\app\routes.py", line 351, in createRef
+    return render_template('referral.html',form=form,isP=checkPatient(current_user),title='Create referral')
+  File "c:\users\kwabe\documents\!python proj\!nea\nea1\nea2\venv\lib\site-packages\flask\templating.py", line 148, in render_template
+    return _render(
+  File "c:\users\kwabe\documents\!python proj\!nea\nea1\nea2\venv\lib\site-packages\flask\templating.py", line 128, in _render
+    rv = template.render(context)
+  File "c:\users\kwabe\documents\!python proj\!nea\nea1\nea2\venv\lib\site-packages\jinja2\environment.py", line 1301, in render
+    self.environment.handle_exception()
+  File "c:\users\kwabe\documents\!python proj\!nea\nea1\nea2\venv\lib\site-packages\jinja2\environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\kwabe\Documents\!Python Proj\!NEA\NEA1\NEA2\app\templates\referral.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "C:\Users\kwabe\Documents\!Python Proj\!NEA\NEA1\NEA2\app\templates\base.html", line 149, in top-level template code
+    {% block content %}{% endblock %}
+  File "C:\Users\kwabe\Documents\!Python Proj\!NEA\NEA1\NEA2\app\templates\referral.html", line 25, in block 'content'
+    {{form.patient.label}} {{ form.patient }}
+  File "c:\users\kwabe\documents\!python proj\!nea\nea1\nea2\venv\lib\site-packages\jinja2\environment.py", line 485, in getattr
+    return getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'app.forms.ReferralForm object' has no attribute 'patient'
+2023-03-04 08:43:25,307 INFO: NEA2 startup [in C:\Users\kwabe\Documents\!Python Proj\!NEA\NEA1\NEA2\app\__init__.py:38]
+2023-03-04 08:44:19,062 ERROR: Exception on /createIllness/2000000000 [POST] [in c:\users\kwabe\documents\!python proj\!nea\nea1\nea2\venv\lib\site-packages\flask\app.py:1455]
+Traceback (most recent call last):
+  File "c:\users\kwabe\documents\!python proj\!nea\nea1\nea2\venv\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "c:\users\kwabe\documents\!python proj\!nea\nea1\nea2\venv\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "c:\users\kwabe\documents\!python proj\!nea\nea1\nea2\venv\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "c:\users\kwabe\documents\!python proj\!nea\nea1\nea2\venv\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "C:\Users\kwabe\Documents\!Python Proj\!NEA\NEA1\NEA2\app\routes.py", line 433, in createIllness
+    return redirect(url_for('createIllness'))
+  File "c:\users\kwabe\documents\!python proj\!nea\nea1\nea2\venv\lib\site-packages\flask\helpers.py", line 336, in url_for
+    return appctx.app.handle_url_build_error(error, endpoint, values)
+  File "c:\users\kwabe\documents\!python proj\!nea\nea1\nea2\venv\lib\site-packages\flask\helpers.py", line 323, in url_for
+    rv = url_adapter.build(
+  File "c:\users\kwabe\documents\!python proj\!nea\nea1\nea2\venv\lib\site-packages\werkzeug\routing.py", line 2305, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.BuildError: Could not build url for endpoint 'createIllness'. Did you forget to specify values ['NHSNum']?
+2023-03-04 08:45:51,217 INFO: NEA2 startup [in C:\Users\kwabe\Documents\!Python Proj\!NEA\NEA1\NEA2\app\__init__.py:38]
+2023-03-04 08:46:04,479 INFO: NEA2 startup [in C:\Users\kwabe\Documents\!Python Proj\!NEA\NEA1\NEA2\app\__init__.py:38]
+2023-03-04 08:46:19,450 INFO: NEA2 startup [in C:\Users\kwabe\Documents\!Python Proj\!NEA\NEA1\NEA2\app\__init__.py:38]
+2023-03-04 08:47:43,883 INFO: NEA2 startup [in C:\Users\kwabe\Documents\!Python Proj\!NEA\NEA1\NEA2\app\__init__.py:38]
+2023-03-04 08:49:36,906 INFO: NEA2 startup [in C:\Users\kwabe\Documents\!Python Proj\!NEA\NEA1\NEA2\app\__init__.py:38]
+2023-03-05 12:25:04,264 INFO: NEA2 startup [in C:\Users\kwabe\Documents\!Python Proj\!NEA\NEA1\NEA2\app\__init__.py:38]
+2023-03-06 10:38:20,339 INFO: NEA2 startup [in C:\Users\kwabe\Documents\!Python Proj\!NEA\NEA1\NEA2\app\__init__.py:38]
+2023-03-06 22:37:17,282 INFO: NEA2 startup [in C:\Users\kwabe\Documents\!Python Proj\!NEA\NEA1\NEA2\app\__init__.py:38]
+2023-03-06 22:38:37,660 INFO: NEA2 startup [in C:\Users\kwabe\Documents\!Python Proj\!NEA\NEA1\NEA2\app\__init__.py:38]
+2023-03-07 23:08:33,390 INFO: NEA2 startup [in C:\Users\kwabe\Documents\!Python Proj\!NEA\NEA1\NEA2\app\__init__.py:38]

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if (isP==False) %}
+    <h1>Search patient by NHS number</h1>
+    <form action="" method="POST">
+        {{form.hidden_tag()}}
+        {{form.NHSNumber(placeholder='Patient NHS Number')}}
+        {{form.submit()}}
+        <p>
+            {% for errors in form.NHSNumber.errors %}
+            <span style="color: red;"><b>Patient does not exist.</b></span>
+            {% endfor %}
+        </p>
+    </form>
+{% else %}
+    <p>404 error: Page not found.</p>
+{% endif %}
+{% endblock %}

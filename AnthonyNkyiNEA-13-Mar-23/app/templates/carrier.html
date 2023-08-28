@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if (current_user.is_authenticated) and (isP==False) %}
+    <script>
+        $.ajax({
+            url: "/api/carrier"
+        }).done(function(res) {
+            const carrier = res.carrier
+            console.log(carrier)
+            autocomplete(document.getElementById("carrier"), carrier)
+        })
+    </script>
+    <h1>Inheritable disease carrier addition</h1>
+    <b>For patient {{patient.forename}} {{patient.surname}} ({{NHSNum}})</b>
+
+        <form action='' method="POST">
+            <div class="autocomplete">
+                Disease <input type="string" name="disease_name" id="carrier" placeholder="Disease name">
+            </div>
+            <div>
+                <input type="submit">
+            </div>
+            <div label="a">
+                {% if indb == True %}
+                    This inherited disease is already recorded, or the disease itself has not been documented yet.
+                {% elif indb == False %}
+                    <b>User {{NHSNum}}'s {{disease}} trait</b> has been added to database.
+                {% endif %}
+            </div>                
+        </form>
+    {% else %}
+        <p>404 error: page not found.</p>
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<script>
+    $.ajax({
+        url: "/api/disease"
+    }).done(function(res) {
+        const disease = res.disease
+        console.log(disease)
+        autocomplete(document.getElementById("disease"), disease)
+    })
+</script>   
+    {% if isP==False %}
+        <h1>Illness history addition</h1>
+        <p><B><A href="{{url_for('createRef', NHSNum=NHSNum)}}">Add referral</A></B></p>
+        <p>For patient <b>{{fn}} {{sn}} ({{NHSNum}})</b></p>
+        <form action="" method="POST">
+            {{form.hidden_tag()}}
+            <div class="autocomplete">
+                {{form.disease.label}} {{form.disease(placeholder="Disease name",id="disease")}}
+            </div>
+            <p>
+                {{form.diagDate.label}} {{form.diagDate}}
+            </p>
+            {% for error in form.diagDate.errors %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+            <p>
+                {{form.endDate.label}} {{form.endDate}}
+            </p>
+            <p>
+                {{form.notes(placeholder='Illness notes')}}
+            </p>
+            <p>
+                {{form.submit()}}
+            </p>
+        </form>
+    {% endif %}
+    {% if allowed==True %}
+        {% for item in prev_ill %}
+            <div>Diagnosed with <b>{{d.query.filter_by(disease_id=item.disease_id).first().diseaseName}}</b> on <b>{{item.diagnosisDate}}.</b>
+            {% if item.endDate %}
+            <br>Confirmed free of illness on <b>{{item.endDate}}.</b>
+            {% endif %}
+            <br><b>Doctor comments:</b><p>{{item.notes}}</p>
+            </div><br>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

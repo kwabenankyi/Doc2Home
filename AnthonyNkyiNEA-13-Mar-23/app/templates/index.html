@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if current_user.is_authenticated %}
+        <h1>Hello, {{ current_user.forename }}!</h1>
+        {% if (isP==True) %}
+            <p><b>Your NHS Number:</b> {{current_user.NHSNumber}}</p>
+            <p><b>Your date of birth:</b> {{current_user.dob}} </p>
+            {% if nextapp %}
+                <h3><b>Your next appointment: </b></h3>
+                {% if nextapp.room %}
+                    <p><b>Confirmed:</b> {{nextapp.apptime}} on {{nextapp.appdate}} in room {{nextapp.room}}.</p>
+                    {% if nextapp.appdate!=today or nextapp.appdate<today %}
+                        <p><a href="{{url_for('cancelApp', id=nextapp.appointment_id)}}"><b>Cancel your appointment</b></a></p>
+                    {% endif %}
+                {% else %}
+                    <p><b>You have requested:</b> {{nextapp.apptime}} on {{nextapp.appdate}}.</p>
+                {% endif %}
+            {% else %}
+                <p><b>Book an <a href="{{ url_for('createApp') }}">appointment</a></b></p>
+            {% endif %}
+
+            <h3>Current prescriptions:</h3>
+            {% for pres in current_pres %}
+                <a href="{{ url_for('viewPres', id=pres.prescription_id )}}"<p><b>{{ Med.query.filter_by(med_id=pres.med_id).first().medicineName }}</b> since {{pres.startDate}}.</p>
+            {% endfor %}
+        {% else %}
+            {% if app_no_notes %}
+                <p><b>Appointments with no notes: </b></p>
+                {% for appointment in app_no_notes %}
+                    <a href="{{ url_for('viewApp', id=appointment[0] ) }}"><p>With {{(Pat.query.filter_by(NHSNumber=appointment[2]).first()).forename}} {{(Pat.query.filter_by(NHSNumber=appointment[2]).first()).surname}} on {{appointment[7]}} at {{appointment[8]}}</p></a>
+                {% endfor %}
+            {% endif %}
+            <p><b>Your upcoming appointments: </b></p>
+            {% if nextapp %}
+                {% for appointment in nextapp %}
+                    <a href="{{ url_for('viewApp', id=appointment.appointment_id ) }}"><p>With {{(Pat.query.filter_by(NHSNumber=appointment.NHSNumber).first()).forename}} {{(Pat.query.filter_by(NHSNumber=appointment.NHSNumber).first()).surname}} on {{appointment.appdate}} at {{appointment.apptime}} in room {{appointment.room}}.</p></a>
+                {% endfor %}
+            {% endif %}
+        {% endif %}
+    {% else %}
+        <h1>Welcome visitor!</h1>
+        <p>Login or register to access the surgery's application.</p>
+    {% endif %}
+{% endblock %}

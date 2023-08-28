@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <script>
+        $.ajax({
+            url: "/api/referral_type"
+        }).done(function(res) {
+            const referral_type = res.referral_type
+            console.log(referral_type)
+            autocomplete(document.getElementById("referral_type"), referral_type)
+        })
+        $.ajax({
+            url: "/api/disease"
+        }).done(function(res) {
+            const disease = res.disease
+            console.log(disease)
+            autocomplete(document.getElementById("disease"), disease)
+        })
+    </script>
+    <h1>Referral addition</h1>
+{% if not isP %}
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            <div class="autocomplete">
+                {{form.refType.label}} {{ form.refType(id="referral_type",placeholder="Referral type") }}
+            </div>
+            <div>
+                {{form.refDate.label}} {{ form.refDate }}
+            </div>
+            <div class="autocomplete">
+                {{form.disease.label}} {{ form.disease(id="disease",placeholder="Disease") }}
+            </div>
+            <div>
+                {{form.ref_notes.label}} {{ form.ref_notes }}
+            </div>
+            <div>
+                {{ form.submit() }}
+            </div>
+        </p>
+    </form>
+    {% for item in prev_ill %}
+        <div>Type <b>{{item.type}}</b> referred to on <b>{{item.diagnosisDate}}.</b>
+        <br><b>Doctor comments:</b><p>{{item.notes}}</p>
+        </div><br>
+    {% endfor %}
+{% endif %}
+{% endblock %}

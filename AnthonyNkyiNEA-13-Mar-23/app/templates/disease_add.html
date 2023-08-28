@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+        <h1>Disease addition</h1>
+    {% if (current_user.is_authenticated) and (isP==False) and (current_user.accessLev < 2) %}
+        <form method="POST">
+            <div>
+                Disease <input type="text" name="disease_name" placeholder="Disease name">
+            </div><br>
+            <div>
+                Is the disease inheritable? <input type="checkbox" name="ch1">
+            </div><br>
+            <div>
+                <input type="submit">
+            </div>
+            <div label="a">
+                {% if indb == True %}
+                    <b>{{disease}}</b> is already in database.
+                {% elif indb == False %}
+                    <b>{{disease}}</b> has been added to database.
+                {% endif %}
+            </div>                
+            <div>
+            </div>
+        </form>
+    {% else %}
+        <p>404 error: page not found.</p>
+    {% endif %}
+
+{% endblock %}

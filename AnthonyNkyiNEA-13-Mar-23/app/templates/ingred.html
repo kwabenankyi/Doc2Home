@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Link medicine to allergen</h1>
+    {% if (current_user.is_authenticated) and (current_user.accessLev<3) %}
+        <!-- autocomplete is sourced from https://www.w3schools.com/howto/howto_js_autocomplete.asp -->
+        <style>
+            * {
+            box-sizing: border-box;
+            }
+            
+            /*the container must be positioned relative:*/
+            .autocomplete {
+            position: relative;
+            display: inline-block;
+            }
+            
+            input[type=text] {
+            background-color: #f1f1f1;
+            width: 100%;
+            }
+            
+            input[type=submit] {
+            background-color: DodgerBlue;
+            color: #fff;
+            cursor: pointer;
+            }
+            
+            .autocomplete-items {
+            position: absolute;
+            border: 1px solid #d4d4d4;
+            border-bottom: none;
+            border-top: none;
+            z-index: 99;
+            /*position the autocomplete items to be the same width as the container:*/
+            top: 100%;
+            left: 0;
+            right: 0;
+            }
+            
+            .autocomplete-items div {
+            cursor: pointer;
+            background-color: #fff; 
+            border-bottom: 1px solid #d4d4d4; 
+            }
+            
+            /*when hovering an item:*/
+            .autocomplete-items div:hover {
+            background-color: #e9e9e9; 
+            }
+            
+            /*when navigating through the items using the arrow keys:*/
+            .autocomplete-active {
+            background-color: DodgerBlue !important; 
+            color: #ffffff; 
+            }
+        </style>
+
+        <form action="" method="POST" autocomplete="off">
+            {{ form.hidden_tag() }}
+            <div class="autocomplete">
+                <p>
+                    {{ form.medicine.label }}
+                    {{ form.medicine(id='med',placeholder='medicine',size=24) }}
+                </p>
+            </div>
+            <div class="autocomplete">
+                {{ form.allergen.label }} {{ form.allergen(id="all",placeholder="allergen") }}
+            </div>
+            <div label="a"><b>
+                {% if indb == True %}
+                    This {{medicine}} allergy is already in database.
+                {% elif indb == False %}
+                    {% if medicine %}
+                        {{medicine}} allergy has been added to database.
+                    {% endif %}
+                {% endif %}
+            </div></b>
+            {{ form.submit }}
+        </form>
+        <script>    
+            $.ajax({
+                url: "/api/medicine"
+            }).done(function(res) {
+                const medicine = res.medicine
+                console.log(medicine)
+                autocomplete(document.getElementById("med"), medicine)
+            })
+            $.ajax({
+                url: "/api/allergens"
+            }).done(function(res) {
+                const allergies = res.allergens
+                console.log(allergies)
+                autocomplete(document.getElementById("all"), allergies)
+            })
+
+        </script>
+    {% else %}
+        <p>404 error: page not found.</p>
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container"><h2 class="form-signin-heading">Login</h2>
+    <div class="input-group" style="margin:auto;">
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.email(placeholder="Email") }}<br>
+            {% for errors in form.email.errors %}
+            <span style="color: red;">Email must be between 8 and 64 characters.</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.password(placeholder="Password") }}<br>
+            {% for errors in form.password.errors %}
+            <span style="color: red;">Password must be between 8 and 80 characters.</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.remember.label }} {{ form.remember() }}</p>
+        <p>{{ form.submit() }}</p>
+    </form></div></div>
+    <p>New User? Click to register<a href="{{ url_for('registerDoc') }}"> as a doctor</a> or <a href="{{ url_for('registerPatient') }}`"> as a patient</a>.</p>
+    <p>
+        Forgot Your Password?
+        <a href="{{ url_for('resetPasswordRequest') }}">Click to Reset It</a>
+    </p>
+{% endblock %}

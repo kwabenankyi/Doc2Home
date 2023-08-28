@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if (isP==False) and (current_user.accessLev < 3) %}
+        <h1><b>Medicine: {{name}}</b></h1>
+        <h2><B>Known allergens in {{name}}:</B></h2>
+        <h3><a href="{{ url_for('createMedAllergy') }}">Add new allergen</a></h3>
+        {% for item in allergies %}
+            <h3><li>{{item}}</li></h3>
+        {% endfor %}
+        <h2>Patients currently prescribed:</h2>
+    <!--url to add allergen / new med-->
+    {% else %}
+        <p>404 error</p>
+    {% endif %}
+{% endblock %}

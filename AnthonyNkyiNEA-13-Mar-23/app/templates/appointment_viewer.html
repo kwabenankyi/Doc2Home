@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Appointment {{id}}</h1>
+
+{% if current_user.is_authenticated %}
+{% if message %}
+<p><b>{{message}}</b></p>
+<p>Are you sure you want to book the appointment? </p>
+<div>
+    <b>Date:</b> {{item.appdate}} --- <b>Time:</b> {{item.apptime}} --- with <b>{{fn}} {{sn}}</b>
+</div>
+<form action="" method="post">
+    Room: <input type="text" label="approom" id="approom">
+    <br><input type="submit"><b><input type="submit" value="No, I won't book" id="reject" label="reject"></b>
+</form>
+{% else %}
+        {% if post_app==True %}
+            <p>Your appointment was with <b>Dr. {{ fn }} {{ sn }}</b> on <b>{{ item.appdate }}, {{ item.apptime }}.</b></p>
+            <br><p><b>What your doctor said about it</b></p>
+            <p>{{item.patient_feedback}}</p>
+            {% if isP==False %}
+                <p><b>Doctor notes</b></p>
+                <p>{{item.doctorNotes}}</p>
+            {% endif %}
+            {% for item in linked_test %}
+            <div>Test type <b>{{item.testType}}</b> referred to on <b>{{item.testDate}}.</b>
+            <br><b>Doctor comments:</b><p>{{item.testDoctorNotes}}</p>
+            </div><br>
+            {% endfor %}
+        {% elif ((isP==False) and (item.appdate<=today and item.room)) %}
+            <p>{{ fn }} {{ sn }} ({{item.NHSNumber}}) at {{ item.appdate }}, <b>{{ item.apptime }}.</b></p>
+                <form action="" method="post">
+                    {{ followUp.hidden_tag() }}
+                    <p>
+                        {{ followUp.fulfilled.label }} {{ followUp.fulfilled }}<br>
+                    </p>
+                    <p>
+                        {{ followUp.patient_feedback.label }}<br>
+                        {{ followUp.patient_feedback(placeholder='Enter your patient feedback here.') }}
+                    </p>
+                    <p>
+                        {{ followUp.doctor_notes.label }}<br>
+                        {{ followUp.doctor_notes(placeholder=("Enter notes for the surgery's records here.")) }}
+                    </p>
+                    <p>{{followUp.submit}}</p>
+                </form>
+            <!--label for notes-->
+            <p>Did a test occur this appointment? Add the test info <a href="{{ url_for('createTest', appoint=item.appointment_id ) }}">here.</a></p>
+            <p>Add any illness diagnoses <a href="">here.</a></p>
+            <!--label for feedback -->
+        {% elif ((isP==False) or current_user.NHSNumber==item.NHSNumber) %}
+            <p><b>{{ fn }} {{ sn }} ({{item.NHSNumber}})</b></p>
+            <p><b>REQUESTED DATE AND TIME: {{ item.appdate }} {{ item.apptime }}.</b></p>
+            <form action="" method="post">
+                {{ form.hidden_tag() }}
+                <p>
+                    {{ form.appdate.label }}<br>
+                    {{ form.appdate(value=item.appdate) }}<br>
+                </p>
+                {% for errors in form.appdate.errors %}
+                <span style="color: red;">Appointment cannot be booked in the past.</span>
+                {% endfor %}
+                <p>
+                    {{ form.apptime.label }}<br>
+                    {{ form.apptime(value=item.apptime,size=12) }}<br>
+                </p>
+                <p>
+                    {{ form.approom.label }}<br>
+                    {{ form.approom(size=1) }}
+                </p>
+                {{ form.submit() }}
+                <p><a href="{{url_for('cancelApp', id=item.appointment_id)}}">Cancel appointment</a></p>
+            </form>
+        {% endif %}
+{% endif %}
+{% else %}<p><B>Login please</B></p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>View illness history</h1>
+    {% if (allowed==True or (illness_hist.NHSNumber==current_user.NHSNumber)) %}
+        <p><b>Illness for patient {{fn}} {{sn}} ({{illness_hist.NHSNumber}})</b></p>
+        <p><b>Info:</b> {{illness_hist}} </p>
+        {% if illness_hist.endDate %}
+        <p><b>End date:</b> {{illness_hist.endDate}}</p>
+        {% endif %}
+        <p><b>Doctor notes:</b> {{illness_hist.notes}} </p>
+    {% else %}
+        <p>404 error. Page not found.</p>
+    {% endif %}
+{% endblock %}

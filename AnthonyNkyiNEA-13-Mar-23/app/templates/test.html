@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <script>
+        $.ajax({
+            url: "/api/test_type"
+        }).done(function(res) {
+            const test_type = res.test_type
+            console.log(test_type)
+            autocomplete(document.getElementById("test_type"), test_type)
+        })
+    </script>
+    <h1>Test addition</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            <div>
+                {% if fn %}
+                    For <b>{{fn}} {{sn}}</b> - test occurred on <b>{{day}}</b>.
+                    <p hidden>{{ form.patient(value=NHSNum) }}</p>
+                {%else%}
+                    {{form.patient.label}} {{ form.patient }}
+                {%endif%}
+            </div><br>
+            <div class="autocomplete">
+                {{form.testType.label}} {{ form.testType(id="test_type",placeholder="Test type") }}
+            </div>
+            <div>
+                 <p hidden>{{ form.testDate(value=day) }}</p>
+            </div>
+            <p>
+                {{form.test_notes.label}} {{ form.test_notes }}
+            </p>
+            <div>
+                {{ form.submit() }}
+            </div>
+        </p>
+    </form>
+{% endblock %}

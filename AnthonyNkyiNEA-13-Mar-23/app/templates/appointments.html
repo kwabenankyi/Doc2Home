@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if current_user.is_authenticated %}
+        {% if isP==False %}<!-- doctor section -->
+            <h2>Book patient appointment</h2>
+                <form action="" method="post">
+                    {{ doctorForm.hidden_tag() }}
+                    <p>
+                        {{ doctorForm.patient.label }}
+                        {{ doctorForm.patient }}
+                    </p>
+                        {{ doctorForm.appdate.label }}
+                        {{ doctorForm.appdate }}
+                    <p>
+                        {{ doctorForm.apptime.label }}
+                        {{ doctorForm.apptime() }} 
+                    </p>
+                    <p>
+                        {{ doctorForm.approom.label }}
+                        {{ doctorForm.approom }} 
+                    </p>
+                    <p>
+                        {{ doctorForm.submit }} 
+                    </p>
+                </form>
+
+            <h2>Requested appointments</h2>
+            {% for item in queue1 %}
+                <a href="{{ url_for('viewApp', id=item.appointment_id ) }}"><p class="dotted">
+                    {{ (pat.query.filter_by(NHSNumber=item.NHSNumber).first()).forename }}
+                    {{ (pat.query.filter_by(NHSNumber=item.NHSNumber).first()).surname }}: requested
+                    {{ item.appdate.strftime('%d-%m-%Y')}} at {{ item.apptime.strftime('%H:%M')}} {{ form.hidden_tag() }}
+                </p></a>
+            {% endfor %}
+            <h2>Appointments in the past you haven't added notes for</h2>
+            {% if queue2 %}
+                {% for item in queue2 %}
+                    <a href="{{ url_for('viewApp', id=item.appointment_id ) }}"><p class="dotted">
+                        {{ (pat.query.filter_by(NHSNumber=item.NHSNumber).first()).forename }}
+                        {{ (pat.query.filter_by(NHSNumber=item.NHSNumber).first()).surname }}:
+                        {{ item.appdate.strftime('%d-%m-%Y')}} at {{ item.apptime.strftime('%H:%M')}}
+                        with {{ (doc.query.filter_by(doctor_id=item.doctor_id).first()) }}
+                        {{ form.hidden_tag() }}
+                    </p></a>
+                {% endfor %}
+            {% else %}
+                <p>You're all caught up!</p>
+            {% endif %}
+            <h2>Your upcoming confirmed appointments:</h2>
+            {% if queue3 %}
+            {% for item in queue3 %}
+                <a href="{{ url_for('viewApp', id=item.appointment_id ) }}"><p class="dotted">
+                    {{ (pat.query.filter_by(NHSNumber=item.NHSNumber).first()).forename }}
+                    {{ (pat.query.filter_by(NHSNumber=item.NHSNumber).first()).surname }}:
+                    {{ item.appdate.strftime('%d-%m-%Y')}} at {{ item.apptime.strftime('%H:%M')}}
+                    in room {{ item.room }} {{ form.hidden_tag() }}
+                </p></a>
+            {% endfor %}
+            {% else %}            
+            <p>No upcoming appointments.</p>{%endif%}
+        {% else %}<!--Patient section-->
+            {% if appointment %}
+                <h1>Your next appointment</h1>
+                <p>
+                    {{ appointment.appdate }}
+                    {{ appointment.apptime }}
+                    in room {{ appointment.room}}
+                </p>
+            {% else %}
+                <h1>Book appointment</h1>
+                <form action="" method="post">
+                    {{ form.hidden_tag() }}
+                    <p>
+                        {{ form.appdate.label }}<br>
+                        {{ form.appdate }}<br>
+                    </p>
+                    <p>
+                        {{ form.apptime.label }}<br>
+                        {{ form.apptime }}<br>
+                    </p>
+                    <p>
+                        {% for error in form.appdate.errors %}
+                            <span style="color: red;">Error: {{ error }}</span>
+                        {% endfor %}
+                    </p>
+                    <p>{{ form.submit() }}</p>
+                </form>
+            {% endif %}
+            {% if prev_queue %}
+                <h1>Previous appointments</h1>
+                {% for item in prev_queue %}
+                <a href="{{ url_for('viewApp', id=item.appointment_id ) }}"><p class="dotted">
+                    With Dr. {{ (doc.query.filter_by(doctor_id=item.doctor_id).first()).forename }}
+                    {{ (doc.query.filter_by(doctor_id=item.doctor_id).first()).surname }}:
+                    {{ item.appdate.strftime('%d-%m-%Y')}} at {{ item.apptime.strftime('%H:%M')}}
+                    in room {{ item.room }} {{ form.hidden_tag() }}
+                </p></a>
+            {% endfor %}
+            {% endif %}
+        {% endif %}
+    {% else %}
+        <p>Log in to book an appointment.</p>
+    {% endif %}
+{% endblock %}

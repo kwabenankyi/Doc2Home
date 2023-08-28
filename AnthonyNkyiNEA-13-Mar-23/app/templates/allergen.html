@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+        <h1>Allergen addition</h1>
+    {% if (current_user.is_authenticated) and (isP==False) and (current_user.accessLev < 3) %}
+        <form method="POST">
+            <label for="allergenName">
+                <input type="text" id="allergenName" name="allergenName" required pattern="\S(.*\S)?">
+            </label>
+            <input type="submit" value="search">
+                <br><div label="a">
+                    {% if indb == True %}
+                        {{allergen}} is already present in database.
+                    {% elif indb == False %}
+                        {% if allergen %}
+                            {{allergen}} has been added to database.
+                        {% endif %}
+                    {% endif %}
+                </div>                
+        </form>
+    {% else %}
+        <p>404 error: page not found.</p>
+    {% endif %}
+
+{% endblock %}

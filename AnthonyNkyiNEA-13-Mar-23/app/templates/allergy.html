@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Create patient allergy</h1>
+    {% if (current_user.is_authenticated) and (isP==False) and (current_user.accessLev < 3) %}
+        <p>
+            For <b>{{fn}} {{sn}}: ({{NHSNum}})</b>
+        </p>
+        <form action="" method="POST" autocomplete="off">
+            {{ form.hidden_tag() }}
+            <div class="autocomplete">
+                {{ form.allergy.label }} {{ form.allergy(id="myInput",placeholder="Allergy") }}
+            </div>
+            <div><br>
+                {{ form.severity.label }}
+                {{ form.severity }}
+            </div>
+            <br>
+            <p><b>Note: severity 1 is the highest severity allergy while severity 5 is the mildest.</b></p>
+            {{ form.submit }}
+        </form>
+        <script>    
+            $.ajax({
+                url: "/api/allergens"
+            }).done(function(res) {
+                const allergies = res.allergens
+                console.log(allergies)
+                autocomplete(document.getElementById("myInput"), allergies)
+            })
+        </script>
+    {% else %}
+        <p>404 error: page not found.</p>
+    {% endif %}
+
+{% endblock %}

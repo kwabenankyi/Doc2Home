@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if current_user.is_authenticated %}
+    <h1>{{ account.forename }} {{ account.surname }}: Profile</h1>
+    {% if (isP==False and isP_prof==True) %}
+    <a href="{{ url_for('createIllness', NHSNum=account.NHSNumber) }}">Add illness history</a> - <a href="{{ url_for('createApp') }}">Create appointment</a> - <a href="{{ url_for('createPatientAllergy', NHSNum=account.NHSNumber) }}">Create patient allergy</a> - <a href="{{ url_for('createInherit', NHSNum=account.NHSNumber) }}">Record inherited disease</a>
+    {% endif %}
+    <p><b>Email:</b> {{account.email}}</p>
+    {% if isP_prof==False %}
+        <p><b>NI Number:</b> {{ number }} </p>
+        <p><b>Access level:</b> {{ current_user.accessLev }}</p>
+        <p><b>Gender:</b> {{ current_user.gender }}</p>
+    {% else %}
+        <p><b>NHS Number:</b> {{ account.NHSNumber }}</p>
+        <p><b>Date of birth:</b> {{ account.dob }}</p>
+        <p><b>Sex:</b> {{ account.sex }}</p>
+        <p><b>Last measured height:</b> {{ account.height }} cm</p>
+        <p><b>Last measured weight:</b> {{ account.weight }} kg</p>
+        <p><b>Blood type:</b> {{ account.bloodType }}</p>
+    {% endif %}
+    <p><b>Address:</b> {{ houseNo }} {{ streetName }}, {{ postcode[:spl] }} {{ postcode[spl:]}}</p>
+    
+    {% if all_pres.queue %}
+    <p><B>Prescriptions:</B></p>
+        {% for item in all_pres.queue %}
+            <div>
+                <a href="{{ url_for('viewPres', id=item.prescription_id )}}">{{item}}</a><br>
+            </div> 
+        {% endfor %}    
+    {% elif isP_prof==True %}
+        <p><b>No current prescriptions.</b></p>
+    {% endif %}
+
+    {% if allergies.queue %}
+        <div>
+            <p><b>Known allergies: </b>{% for item in allergies.queue %} {{item}} {% endfor %}</p>
+        </div>
+    {% elif isP_prof==True %}
+        <p><b>No known allergies.</b></p>
+    {% endif %}
+    {% if (ill_hist.queue) %}
+    <b>Illness history:</b><br>
+        {% for item in ill_hist.queue %}
+        <div>
+            <a href="{{ url_for('viewHist', id=item.unhealthy_id )}}">{{item}}</a><br>
+        </div> 
+        {% endfor %}<br>
+    {% elif isP_prof==True %}
+        <p><b>No illness history recorded.</b></p>
+    {% endif %}
+
+    {% if inherited.queue %}
+    <div>
+        <p><b>Known inherited diseases: </b>{% for item in inherited.queue %} {{item}} {% endfor %}</p>
+    </div>
+    {% elif isP_prof==True %}
+        <p><b>No known inherited diseases.</b></p>
+    {% endif %}<br>    
+
+{% else %}
+    <h1 style="font-family:'Times New Roman', Times, serif">You must be logged in to view this page!</h1>
+{% endif %}
+{% endblock %}

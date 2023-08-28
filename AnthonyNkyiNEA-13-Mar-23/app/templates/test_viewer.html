@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>View test</h1>
+    {% if (allowed==True or (test.NHSNumber=current_user.NHSNumber)) %}
+        <p><b>Test id {{id}} for {{test.NHSNumber}}</b></p>
+        <p><b>Performed by:</b> Dr {{doc.query.filter_by(doctor_id=test.doctor_id).first().forename}} {{doc.query.filter_by(doctor_id=test.doctor_id).first().surname}}</p>
+        <p><b>Took place on:</b> {{test.testDate}} </p>
+        <p><b>Test type:</b> {{test.testType}} </p>
+        <p><b>Doctor notes:</b> {{test.testDoctorNotes}} </p>
+    {% else %}
+        <p>404 error. Page not found.</p>
+    {% endif %}
+{% endblock %}

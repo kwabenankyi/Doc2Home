@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <script>
+        $.ajax({
+            url: "/api/medicine"
+        }).done(function(res) {
+            const medicine = res.medicine
+            console.log(medicine)
+            autocomplete(document.getElementById("medicine"), medicine)
+        })
+        $.ajax({
+            url: "/api/disease"
+        }).done(function(res) {
+            const disease = res.disease
+            console.log(disease)
+            autocomplete(document.getElementById("disease"), disease)
+        })
+    </script>
+    <h1>Prescription addition</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            <div>
+                {{form.patient.label}} {{ form.patient }}
+            </div>
+            <div class="autocomplete">
+                {{form.medicine.label}} {{ form.medicine(id="medicine",placeholder="Medicine") }}
+            </div>
+            <div>
+                {{form.dosage.label}} {{ form.dosage }}
+            </div>
+            <div class="autocomplete">
+                {{form.disease.label}} {{ form.disease(id="disease",placeholder="Disease") }}
+            </div>
+            <div>
+                {{ form.submit() }}
+            </div>
+        </p>
+    </form>
+{% endblock %}

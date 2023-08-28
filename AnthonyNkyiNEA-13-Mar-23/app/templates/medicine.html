@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <script>
+        function medicineCheck() {
+            $.ajax({
+                url: "/api/medicine"
+            }).done(function(res) {
+                const medicine = res.medicine                
+                var med = document.getElementById("medicineName").value;
+                var para = document.getElementById("db_check")
+                var button = document.getElementById("but")
+                if (medicine.includes(med)) {
+                    var para = document.getElementById("in_db")
+                    para.textContent += "Item is already present in database";
+                    window.location.href = "/medicine/"+med
+                } else {
+                        para.style.display = 'block'
+                        button.style.display = 'none'                        
+                }
+            })
+        }
+    </script>
+    <h1>Medicine addition</h1>
+    {% if (current_user.is_authenticated) and (isP==False) and (current_user.accessLev == 1) %}
+        <form method="POST">
+            <div>
+                <label for="medicineName">
+                    Name: <input required pattern="\S(.*\S)?" type="text" id="medicineName" name="medicineName" placeholder="Medicine" maxlength="64" required>
+                </label>
+            </div><br>
+            
+            <b><div id="in_db"></div></b>
+
+            <div id="db_check" style="display:none">
+                <Div>
+                    <label for="dosage">
+                        Recommended dosage: <input required pattern="\S(.*\S)?" type="text" id="dosage" name="dosage" maxlength="128" placeholder="Dosage">
+                    </label>
+                </Div>
+                <br><input type="submit">
+            </div>
+
+            <div id="but" style="display:block">
+                <br><button onclick="medicineCheck()">Submit</button>
+            </div>    
+        </form>
+    {% else %}
+        <p>404 error: page not found.</p>
+    {% endif %}
+
+{% endblock %}
