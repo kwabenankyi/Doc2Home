@@ -5,12 +5,18 @@ To run the program:
 
 1. recreate virtual environment with instruction:
 > "python -m venv venv"
+
+2. run virtual environment
 > "venv\Scripts\activate" on Windows OR "source venv/bin/activate" on Mac 
 
-2. install modules with pip:
+3. install modules with pip:
 > "pip install -r requirements.txt"
-> "set FLASK_APP=nea.py" on Windows, "export FLASK_APP=nea.py" on Mac
-> "flask run (--host:0.0.0.0)"
 
-3. if ImportError is raised, run command "python nea.py" to install uninstalled packages
+4. identify the flask app "nea.py"
+> "set FLASK_APP=nea.py" on Windows, "export FLASK_APP=nea.py" on Mac
+
+5. run the application, and include " --host:0.0.0.0" at the end of the command to run the app on a local network.
+> "flask run"
+
+6. if ImportError is raised, run command "python nea.py" to install uninstalled packages
 
