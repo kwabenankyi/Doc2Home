@@ -11,6 +11,6 @@ class Config(object):#these are all the parameters passed through the venv: "set
     MAIL_PORT = int(587)
     MAIL_USE_TLS = True
     MAIL_USE_SSL = False
-    MAIL_USERNAME = 'noreply.kwanea1@Gmail.com'
-    MAIL_PASSWORD = 'wnxkdiejrtpkhlot'
-    ADMINS = ['noreply.kwanea1@gmail.com']
+    MAIL_USERNAME = '' #replace with correct username and password for account
+    MAIL_PASSWORD = ''
+    ADMINS = [MAIL_USERNAME]
