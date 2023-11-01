@@ -1,5 +1,5 @@
 # Doc2Home
-Project files and report for Doc2Home, a doctors' surgery management system built for my A-Level Computer Science coursework. It scored 100%.
+Project files and report for Doc2Home, a doctors' surgery management system built for my A-Level Computer Science coursework. It received a mark of 100% at grade A*.
 
 view my YouTube channel at https://www.youtube.com/@kwabenankyi
 
